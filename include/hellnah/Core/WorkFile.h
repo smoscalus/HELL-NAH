@@ -2,6 +2,8 @@
 
 struct WorkFile
 {
-    const char Value[32];
-    WorkFile(const char* path);
+private:
+    char Value[256];
+public:
+    WorkFile(const char *path);
 };
