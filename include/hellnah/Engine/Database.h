@@ -1,15 +1,18 @@
 #pragma once
 
 #include "Table.h"
+#include "../Core/WorkFile.h"
 
 class Database
 {
-public:
-    Database(const char *path);
+    WorkFile _workFile;
 
+public:
+    Database(const char *path): _workFile(path) {};
+    
     template <typename T>
     Table<T> open_table(const char *path)
     {
-        return T{};
+        return Table<T>(_workFile);
     }
 };
