@@ -2,19 +2,20 @@
 
 #include "../Core/WorkFile.h"
 
-class FileStorage
+namespace Storage::FileStorage
 {
-    WorkFile _workFile;
+    class FileStorage
+    {
+    public:
 
-private:
-    FileStorage(const char *path) : _workFile(path) {};
+        void create_file(const char *path);
 
-public:
-    static FileStorage OpenFile(const char *path);
+        void read_file(const char *path);
 
-    int add();
+        int is_exists_file(const char *path);
 
-    int get();
-
-    void remove();
+        int add();
+        int get();
+        void remove();
+    };
 };
