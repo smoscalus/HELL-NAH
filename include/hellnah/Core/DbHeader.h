@@ -2,10 +2,13 @@
 
 #include <cstdint>
 
-struct DbHeader
+namespace Core
 {
-    char magic[8]{"HELLNAH"};
-    uint32_t version;
-};
+    struct DbHeader
+    {
+        char magic[8]{"HELLNAH"};
+        uint32_t version;
+    };
 
-static_assert(sizeof(DbHeader) == 12, "DbHeader size must be 12 bytes");
+    static_assert(sizeof(DbHeader) == 12, "DbHeader size must be 12 bytes");
+}

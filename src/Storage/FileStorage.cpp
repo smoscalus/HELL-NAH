@@ -25,7 +25,7 @@ void FileStorage::create_file(const char *path)
 {
     std::ofstream file(path, std::ios::binary);
 
-    DbHeader header{};
+    Core::DbHeader header{};
     header.version = 0.1;
 
     file.write((char *)&header, sizeof(header));
@@ -34,7 +34,7 @@ void FileStorage::create_file(const char *path)
 
 void FileStorage::read_file(const char *path)
 {
-    DbHeader header;
+    Core::DbHeader header;
     std::ifstream file(path, std::ios::binary);
     file.read((char *)&header, sizeof(header));
 

@@ -1,9 +1,12 @@
 #pragma once
 
-struct WorkFile
+namespace Core
 {
-private:
-    char Value[256];
-public:
-    WorkFile(const char *path);
-};
+    struct WorkFile
+    {
+    private:
+        char Value[256];
+    public:
+        WorkFile(const char *path);
+    };
+}

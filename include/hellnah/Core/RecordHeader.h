@@ -2,13 +2,16 @@
 
 #include <cstdint>
 
-using RecordId = uint64_t;
-
-struct RecordHeader
+namespace Core
 {
-    RecordId id;
-    uint32_t size;
-    uint8_t isDeleted;
-};
+    using RecordId = uint64_t;
 
-static_assert(sizeof(RecordHeader) == 16, "RecordHeader size must be 16 bytes");
+    struct RecordHeader
+    {
+        RecordId id;
+        uint32_t size;
+        uint8_t isDeleted;
+    };
+
+    static_assert(sizeof(RecordHeader) == 16, "RecordHeader size must be 16 bytes");
+}

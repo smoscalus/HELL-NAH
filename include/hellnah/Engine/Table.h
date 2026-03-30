@@ -3,6 +3,8 @@
 #include "../Storage/FileStorage.h"
 #include "../Core/WorkFile.h"
 
+namespace Engine
+{
 template <typename T>
 class Table
 {
@@ -19,3 +21,4 @@ public:
 
     void remove(T);
 };
+}

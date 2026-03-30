@@ -4,7 +4,7 @@
 
 #include <cstring>
 
-WorkFile::WorkFile(const char *path)
+Core::WorkFile::WorkFile(const char *path)
 {
     if (!Storage::FileStorage::is_exists_file(path))
     {

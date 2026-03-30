@@ -3,9 +3,11 @@
 #include "Table.h"
 #include "../Core/WorkFile.h"
 
+namespace Engine
+{
 class Database
 {
-    WorkFile _workFile;
+    Core::WorkFile _workFile;
 
 public:
     Database(const char *path): _workFile(path) {};
@@ -16,3 +18,4 @@ public:
         return Table<T>(_workFile);
     }
 };
+}
