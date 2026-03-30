@@ -4,11 +4,9 @@
 
 namespace Core
 {
-    using RecordId = uint64_t;
-
     struct RecordHeader
     {
-        RecordId id;
+        uint64_t id;
         uint32_t size;
         uint8_t isDeleted;
     };

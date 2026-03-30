@@ -11,7 +11,10 @@ struct student
 
 int main()
 {
-    auto db = Database("students.hellnot");
+    student s;
+    auto db = Engine::Database("students.hellnot");
 
     auto students = db.open_table<student>("students");
+
+    auto id = students.insert(s);
 }
