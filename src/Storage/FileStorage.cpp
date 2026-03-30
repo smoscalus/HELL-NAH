@@ -38,9 +38,9 @@ void FileStorage::read_file(const char *path)
     std::ifstream file(path, std::ios::binary);
     file.read((char *)&header, sizeof(header));
 
-    if (memcmp(header.magic, "HELLNOT", 8) != 0)
+    if (memcmp(header.magic, "HELLNAH", 8) != 0)
     {
-        throw std::runtime_error("Файл не является HELLNAH базой!");
+        throw std::runtime_error("The file is not a HELLNAH database!");
     }
 }
 }
