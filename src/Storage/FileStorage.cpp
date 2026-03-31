@@ -38,7 +38,7 @@ namespace Storage
     {
         Core::DbHeader header;
         std::ifstream file(path, std::ios::binary);
-        file.read(reinterpret_cast<char*>(&header), sizeof(header));
+        file.read(reinterpret_cast<char *>(&header), sizeof(header));
 
         if (memcmp(header.magic, "HELLNAH", 8) != 0)
         {
@@ -46,7 +46,7 @@ namespace Storage
         }
     }
 
-    int FileStorage::add(const char* path, size_t size)
+    int FileStorage::add_record(const char *path, size_t size)
     {
         std::ofstream file(path, std::ios::binary | std::ios::app);
 
@@ -56,7 +56,7 @@ namespace Storage
         record_header.size = size;
         record_header.isDeleted = 0;
 
-        file.write(reinterpret_cast<char*>(&record_header), sizeof(record_header));
+        file.write(reinterpret_cast<char *>(&record_header), sizeof(record_header));
 
         return record_header.id;
     }

@@ -20,7 +20,8 @@ int main()
     auto student = students.get(id);
 
     int i;
-    while (student.Value[i] != '\0'){
+    while (student.Value[i] != '\0')
+    {
         cout << student.Value[i];
         i++;
     }

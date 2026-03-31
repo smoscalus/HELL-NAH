@@ -24,7 +24,7 @@ namespace Engine
 
             std::ofstream file(path, std::ios::binary | std::ios::app);
 
-            int id = Storage::FileStorage::add(path, size);
+            int id = Storage::FileStorage::add_record(path, size);
             file.write(reinterpret_cast<const char *>(&obj), size);
 
             file.close();
@@ -62,7 +62,7 @@ namespace Engine
             Core::RecordHeader header;
             file.read(reinterpret_cast<char *>(&header), sizeof(header));
 
-            if(header.isDeleted == 1)
+            if (header.isDeleted == 1)
             {
                 throw std::runtime_error("Record deleted: remove");
             }
@@ -70,7 +70,7 @@ namespace Engine
             header.isDeleted = 1;
 
             file.seekp(offset, std::ios::beg);
-            file.write(reinterpret_cast<char*>(&header), sizeof(header));
+            file.write(reinterpret_cast<char *>(&header), sizeof(header));
         }
     };
 }

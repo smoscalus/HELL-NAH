@@ -6,8 +6,9 @@ namespace Core
     {
     private:
         char Value[256];
+
     public:
         WorkFile(const char *path);
-        const char* getValue() const { return Value; }
+        const char *getValue() const { return Value; }
     };
 }
