@@ -48,7 +48,7 @@ namespace Storage
 
     int FileStorage::add(const char* path, size_t size)
     {
-        std::ofstream file(path, std::ios::binary);
+        std::ofstream file(path, std::ios::binary | std::ios::app);
 
         Core::RecordHeader record_header;
 
