@@ -17,14 +17,14 @@ namespace Engine
     public:
         Table(Core::WorkFile &workFile) : _workFile(workFile) {}
 
-        int insert(T obj)
+        uint64_t insert(T obj)
         {
             const char *path = _workFile.getValue();
             size_t size = sizeof(obj);
 
             std::ofstream file(path, std::ios::binary | std::ios::app);
 
-            int id = Storage::FileStorage::add_record(path, size);
+            uint64_t id = Storage::FileStorage::add_record(path, size);
             file.write(reinterpret_cast<const char *>(&obj), size);
 
             file.close();
@@ -44,7 +44,12 @@ namespace Engine
 
             if (header.isDeleted == 1)
             {
-                throw std::runtime_error("Record deleted: get");
+                throw std::runtime_error("Record deleted");
+            }
+            
+            if (header.id == 0)
+            {
+                throw std::runtime_error("no record");
             }
 
             T value;
@@ -64,7 +69,7 @@ namespace Engine
 
             if (header.isDeleted == 1)
             {
-                throw std::runtime_error("Record deleted: remove");
+                throw std::runtime_error("Record deleted");
             }
 
             header.isDeleted = 1;

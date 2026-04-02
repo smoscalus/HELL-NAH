@@ -1,7 +1,7 @@
 #include "../../include/hellnah/Storage/FileStorage.h"
+#include "../../include/hellnah/Storage/IdStorage.h"
 #include "../../include/hellnah/Core/DbHeader.h"
 #include "../../include/hellnah/Core/RecordHeader.h"
-#include "../../include/hellnah/Storage/FileStorage.h"
 
 #include <iostream>
 #include <fstream>
@@ -52,7 +52,7 @@ namespace Storage
 
         Core::RecordHeader record_header;
 
-        record_header.id = 1; // "for now"
+        record_header.id = next_id(path, size);
         record_header.size = size;
         record_header.isDeleted = 0;
 
