@@ -2,6 +2,7 @@
 
 #include "Table.h"
 #include "../Core/WorkFile.h"
+#include "../Core/Id.h"
 #include "../Storage/FileStorage.h"
 
 #include <cstring>
@@ -13,10 +14,9 @@ namespace Engine
         Core::WorkFile _workFile;
         Core::Id _id;
         Storage::FileStorage _fileStorage;
-        Storage::IdStorage _idStorage;
 
     public:
-        Database(const char *path) : _workFile(path), _id(), _idStorage(_workFile, _id), _fileStorage(_workFile, _idStorage) {};
+        Database(const char *path) : _workFile(path), _id(_workFile), _fileStorage(_workFile, _id) {};
 
         template <typename T>
         Table<T> open_table(const char *table_name)
@@ -31,7 +31,7 @@ namespace Engine
                 throw std::runtime_error(std::string("Table file does not exist: ") + file_name);
             }
 
-            return Table<T>(_workFile, _fileStorage);
+            return Table<T>(_workFile, _fileStorage, _id);
         }
     };
 }

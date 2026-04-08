@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <cstddef>
+#include <cstdint>
 
 namespace Storage
 {
@@ -18,7 +18,8 @@ namespace Storage
 
         Core::RecordHeader record_header;
 
-        record_header.id = _IdStorage.next_id();
+        record_header.id = _id.next_id();
+        _id.set_id(record_header.id);
         record_header.size = size;
         record_header.isDeleted = 0;
 

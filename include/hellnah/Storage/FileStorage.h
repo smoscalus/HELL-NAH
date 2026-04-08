@@ -1,19 +1,19 @@
 #pragma once
 
 #include "../Core/WorkFile.h"
-#include "../Storage/IdStorage.h"
+#include "../Core/Id.h"
 
-#include <cstddef>
+#include <cstdint>
 
 namespace Storage
 {
     class FileStorage
     {
         Core::WorkFile &_workFile;
-        Storage::IdStorage &_IdStorage;
+        Core::Id &_id;
 
     public:
-        FileStorage(Core::WorkFile &workFile, Storage::IdStorage &idStorage): _workFile(workFile), _IdStorage(idStorage){};
+        FileStorage(Core::WorkFile &workFile, Core::Id &id): _workFile(workFile), _id(id) {};
         uint64_t add_record();
     };
 };

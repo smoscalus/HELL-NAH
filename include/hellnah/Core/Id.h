@@ -5,6 +5,7 @@
 #include "../Core/WorkFile.h"
 
 #include <iostream>
+#include <fstream>
 #include <cstdint>
 
 namespace Core

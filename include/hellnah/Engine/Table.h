@@ -14,10 +14,11 @@ namespace Engine
     class Table
     {
         Core::WorkFile &_workFile;
+        Core::Id &_id;
         Storage::FileStorage &_fileStorage;
 
     public:
-        Table(Core::WorkFile &workFile, Storage::FileStorage &fileStorage) : _workFile(workFile), _fileStorage(fileStorage) {}
+        Table(Core::WorkFile &workFile, Storage::FileStorage &fileStorage, Core::Id &id) : _workFile(workFile), _fileStorage(fileStorage), _id(id) {}
 
         uint64_t insert(T obj)
         {
@@ -36,6 +37,11 @@ namespace Engine
 
         T get(int id)
         {
+            if (id > _id.get_id())
+            {
+                throw std::runtime_error("Id is not acthual");
+            }
+
             uint64_t offset = sizeof(Core::DbHeader) + (id - 1) * (sizeof(Core::RecordHeader) + sizeof(T));
 
             std::fstream file(_workFile.get_path(), std::ios::binary | std::ios::in);
