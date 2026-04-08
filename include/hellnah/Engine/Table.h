@@ -55,9 +55,14 @@ namespace Engine
                 throw std::runtime_error("File is broke");
             }
 
-            if (header.id == 0 || header.isDeleted == 1)
+            if (header.id == 0)
             {
                 throw std::runtime_error("Record is broke");
+            }
+
+            if (header.isDeleted == 1)
+            {
+                throw std::runtime_error("Record is deleted");
             }
 
             T value;
