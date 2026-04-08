@@ -13,7 +13,7 @@ namespace Storage
         Core::Id &_id;
 
     public:
-        FileStorage(Core::WorkFile &workFile, Core::Id &id): _workFile(workFile), _id(id) {};
+        FileStorage(Core::WorkFile &workFile, Core::Id &id) : _workFile(workFile), _id(id) {};
         uint64_t add_record();
     };
 };

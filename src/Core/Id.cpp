@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <stdio.h>
 #include <fstream>
- 
+
 void Core::Id::set_id(uint64_t id)
 {
     if (id < 0)

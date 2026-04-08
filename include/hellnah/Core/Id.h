@@ -13,13 +13,12 @@ namespace Core
     struct Id
     {
     private:
-        
         Core::WorkFile &_workFile;
-        
+
         uint64_t id = 0;
 
     public:
-        Id(Core::WorkFile &workFile): _workFile(workFile)
+        Id(Core::WorkFile &workFile) : _workFile(workFile)
         {
             const char *path = _workFile.get_path();
             size_t size = _workFile.get_size();
@@ -54,7 +53,6 @@ namespace Core
 
         void set_id(uint64_t id);
         uint64_t get_id();
-
         uint64_t next_id();
     };
 }
