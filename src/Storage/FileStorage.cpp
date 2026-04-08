@@ -1,5 +1,4 @@
 #include "../../include/hellnah/Storage/FileStorage.h"
-#include "../../include/hellnah/Storage/IdStorage.h"
 #include "../../include/hellnah/Core/DbHeader.h"
 #include "../../include/hellnah/Core/RecordHeader.h"
 
@@ -10,49 +9,16 @@
 
 namespace Storage
 {
-    int FileStorage::is_exists_file(const char *path)
+    uint64_t FileStorage::add_record()
     {
-        std::fstream file(path, std::ios::in | std::ios::binary);
-        if (!file.fail())
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
+        const char *path = _workFile.get_path();
+        size_t size = _workFile.get_size();
 
-    void FileStorage::create_file(const char *path)
-    {
-        std::ofstream file(path, std::ios::binary);
-
-        Core::DbHeader header{};
-        header.version = 0.1;
-
-        file.write((char *)&header, sizeof(header));
-        file.close();
-    }
-
-    void FileStorage::read_file(const char *path)
-    {
-        Core::DbHeader header;
-        std::ifstream file(path, std::ios::binary);
-        file.read(reinterpret_cast<char *>(&header), sizeof(header));
-
-        if (memcmp(header.magic, "HELLNAH", 8) != 0)
-        {
-            throw std::runtime_error("The file is not a HELLNAH database!");
-        }
-    }
-
-    int FileStorage::add_record(const char *path, size_t size)
-    {
         std::ofstream file(path, std::ios::binary | std::ios::app);
 
         Core::RecordHeader record_header;
 
-        record_header.id = next_id(path, size);
+        record_header.id = _IdStorage.next_id();
         record_header.size = size;
         record_header.isDeleted = 0;
 
