@@ -97,7 +97,6 @@ namespace Engine
             }
 
             header.isDeleted = 1;
-            quantity--;
             file.seekp(offset, std::ios::beg);
             file.write(reinterpret_cast<char *>(&header), sizeof(header));
         }

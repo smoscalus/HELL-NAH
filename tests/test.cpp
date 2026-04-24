@@ -22,3 +22,16 @@ TEST_CASE("Insert works") {
     REQUIRE(strcmp(student.Value, "Alex") == 0);
     REQUIRE(student.Age == 20);
 }
+
+TEST_CASE("Remove works") {
+
+    auto db = Engine::Database("test_students.hellnot");
+    auto students = db.open_table<student>("students");
+
+    students.clear_database();
+
+    auto id = students.insert({"Alex", 20});
+
+    students.remove(id);
+    REQUIRE_THROWS_WITH(students.get(id), "Record is deleted");
+}
