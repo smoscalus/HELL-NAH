@@ -23,6 +23,26 @@ TEST_CASE("Insert works") {
     REQUIRE(student.Age == 20);
 }
 
+TEST_CASE("Double insert works") {
+
+    auto db = Engine::Database("test_students.hellnot");
+    auto students = db.open_table<student>("students");
+
+    students.clear_database();
+    
+    auto id_1 = students.insert({"Alex", 20});
+    auto id_2 = students.insert({"Bob", 21});
+
+    auto student_1 = students.get(id_1);
+    auto student_2 = students.get(id_2);
+
+    REQUIRE(students.quantity == 2);
+    REQUIRE(strcmp(student_1.Value, "Alex") == 0);
+    REQUIRE(student_1.Age == 20);
+    REQUIRE(strcmp(student_2.Value, "Bob") == 0);
+    REQUIRE(student_2.Age == 21);
+}
+
 TEST_CASE("Remove works") {
 
     auto db = Engine::Database("test_students.hellnot");
