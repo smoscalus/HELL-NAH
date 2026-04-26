@@ -6,11 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ========================
-# Include directories
-# ========================
-include_directories(include)
-
-# ========================
 # Source files
 # ========================
 file(GLOB_RECURSE SOURCES
@@ -22,14 +17,18 @@ file(GLOB_RECURSE SOURCES
 # ========================
 add_library(hellnah_db STATIC ${SOURCES})
 
-target_include_directories(hellnah_db PUBLIC include)
+target_include_directories(hellnah_db
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
 
 # ========================
 # Example executable
 # ========================
-add_executable(example_app examples/main.cpp)
+add_executable(hellnah examples/main.cpp)
 
-target_link_libraries(example_app PRIVATE hellnah_db)
+target_link_libraries(hellnah PRIVATE hellnah_db)
 
 # ========================
 # Tests
@@ -43,3 +42,21 @@ add_executable(tests
 target_link_libraries(tests PRIVATE hellnah_db)
 
 add_test(NAME hellnah_tests COMMAND tests)
+
+# ========================
+# Install
+# ========================
+install(TARGETS hellnah_db
+    EXPORT hellnahTargets
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(DIRECTORY include/ DESTINATION include)
+
+install(EXPORT hellnahTargets
+    FILE hellnahTargets.cmake
+    NAMESPACE hellnah::
+    DESTINATION lib/cmake/hellnah
+)

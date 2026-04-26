@@ -43,8 +43,25 @@ TEST_CASE("Double insert works") {
     REQUIRE(student_2.Age == 21);
 }
 
-TEST_CASE("Remove works") {
+TEST_CASE("Invalid id throws") {
+    auto db = Engine::Database("test_students.hellnot");
+    auto students = db.open_table<student>("students");
 
+    students.clear_database();
+
+    REQUIRE_THROWS(students.get(9999));
+}
+
+TEST_CASE("Empty database") {
+    auto db = Engine::Database("test_students.hellnot");
+    auto students = db.open_table<student>("students");
+
+    students.clear_database();
+
+    REQUIRE(students.quantity == 0);
+}
+
+TEST_CASE("Remove works") {
     auto db = Engine::Database("test_students.hellnot");
     auto students = db.open_table<student>("students");
 
