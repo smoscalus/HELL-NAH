@@ -47,6 +47,8 @@ namespace Core
 
     Core::WorkFile::WorkFile(const char *path)
     {
+        strcpy(this->path, path);
+
         if (!is_exists_file())
         {
             create_file();
