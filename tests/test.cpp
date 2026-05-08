@@ -14,7 +14,7 @@ TEST_CASE("Insert works") {
     auto students = db.open_table<student>("students");
 
     students.clear_database();
-    
+
     auto id = students.insert({"Alex", 20});
     auto student = students.get(id);
 
@@ -31,13 +31,14 @@ TEST_CASE("Update works") {
     students.clear_database();
     
     auto id = students.insert({"Alex", 20});
-    auto newStudent = students.update(id, {"Jon", 21});
+    auto status = students.update(id, {"Jon", 21});
 
     auto student = students.get(id);
+
+    REQUIRE(status == true);
     REQUIRE(strcmp(student.Value, "Jon") == 0);
     REQUIRE(student.Age == 21);
 }
-
 
 TEST_CASE("Double insert works") {
 
@@ -72,6 +73,9 @@ TEST_CASE("Empty database") {
     auto db = Engine::Database("test_students.hellnot");
     auto students = db.open_table<student>("students");
 
+    auto id_1 = students.insert({"Alex", 20});
+    auto id_2 = students.insert({"Bob", 21});
+
     students.clear_database();
 
     REQUIRE(students.quantity == 0);
@@ -84,7 +88,8 @@ TEST_CASE("Remove works") {
     students.clear_database();
 
     auto id = students.insert({"Alex", 20});
-
-    students.remove(id);
+    auto status = students.remove(id);
+    
+    REQUIRE(status == true);
     REQUIRE_THROWS_WITH(students.get(id), "Record is deleted");
 }
