@@ -76,6 +76,24 @@ namespace Engine
             return value;
         }
 
+        T update(int id, const T& Obj)
+        {
+            uint64_t baseOffset = sizeof(Core::DbHeader) + (id - 1) * (sizeof(Core::RecordHeader) + sizeof(T));
+            uint64_t dataOffset = baseOffset + sizeof(Core::RecordHeader);
+
+            std::fstream file(_workFile.get_path(), std::ios::binary | std::ios::in | std::ios::out);
+            
+            file.seekp(dataOffset, std::ios::beg);
+            
+            file.write(reinterpret_cast<const char*>(&Obj), sizeof(T));
+
+            if (!file) {
+                    throw std::runtime_error("Failed to update record data");
+                }
+
+            return get(id);
+        }
+
         void remove(int id)
         {
             uint64_t offset = sizeof(Core::DbHeader) + (id - 1) * (sizeof(Core::RecordHeader) + sizeof(T));
